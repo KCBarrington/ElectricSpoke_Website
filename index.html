@@ -248,30 +248,32 @@
 <footer>
   <div class="footer-brand"><img src="text63.webp" alt="ElectricSpoke"></div>
   <div class="footer-copy">© 2025 ElectricSpoke. All rights reserved.</div>
-  <div class="footer-version">v16</div>
+  <div class="footer-version">v17</div>
 </footer>
 
 <script>
-var cdDays  = document.getElementById('cd-days');
-var cdHours = document.getElementById('cd-hours');
-var cdMins  = document.getElementById('cd-mins');
-var cdSecs  = document.getElementById('cd-secs');
-var cdTarget = new Date('2025-07-09T09:00:00').getTime();
+window.onload = function() {
+  var cdDays  = document.getElementById('cd-days');
+  var cdHours = document.getElementById('cd-hours');
+  var cdMins  = document.getElementById('cd-mins');
+  var cdSecs  = document.getElementById('cd-secs');
+  var cdTarget = new Date('2025-07-09T09:00:00').getTime();
 
-function cdTick() {
-  var diff = cdTarget - Date.now();
-  if (diff < 0) { diff = 0; }
-  var d = Math.floor(diff / 86400000);
-  var h = Math.floor((diff % 86400000) / 3600000);
-  var m = Math.floor((diff % 3600000) / 60000);
-  var s = Math.floor((diff % 60000) / 1000);
-  cdDays.textContent  = d < 10 ? '0' + d : '' + d;
-  cdHours.textContent = h < 10 ? '0' + h : '' + h;
-  cdMins.textContent  = m < 10 ? '0' + m : '' + m;
-  cdSecs.textContent  = s < 10 ? '0' + s : '' + s;
-}
-cdTick();
-setInterval(cdTick, 1000);
+  function cdTick() {
+    var diff = cdTarget - Date.now();
+    if (diff < 0) { diff = 0; }
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    cdDays.textContent  = d < 10 ? '0' + d : '' + d;
+    cdHours.textContent = h < 10 ? '0' + h : '' + h;
+    cdMins.textContent  = m < 10 ? '0' + m : '' + m;
+    cdSecs.textContent  = s < 10 ? '0' + s : '' + s;
+  }
+  cdTick();
+  setInterval(cdTick, 1000);
+};
 
 function placeHotspots() {
   var img  = document.getElementById('hero-img');

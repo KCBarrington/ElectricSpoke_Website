@@ -14,7 +14,6 @@
     --muted:#8a8680;
     --dark:#0a0908;
     --dark2:#111010;
-    --dark3:#1a1918;
   }
   html{scroll-behavior:smooth}
   body{
@@ -31,7 +30,7 @@
     padding:1.5rem 3rem;
     background:linear-gradient(to bottom,rgba(10,9,8,0.9),transparent);
   }
-  .nav-logo img{height:28px;opacity:0.9}
+  .nav-logo img{height:28px;opacity:0.9;filter:brightness(0) invert(1);}
   .nav-links{display:flex;gap:2.5rem;list-style:none}
   .nav-links a{
     font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;
@@ -41,26 +40,39 @@
 
   /* HERO */
   .hero{
-    position:relative;min-height:100vh;
-    display:flex;align-items:center;
+    position:relative;
+    width:100%;min-height:100vh;
     overflow:hidden;
+    background:#0a0908;
   }
-  .hero-bg{
-    position:absolute;inset:0;
-    background-image:url('electricspoke-hero-bg.png');
-    background-size:cover;
-    background-position:center right;
-    background-repeat:no-repeat;
+
+  /* Scooter image — absolutely fills hero, object-fit cover */
+  .hero-img{
+    position:absolute;
+    inset:0;
+    width:100%;height:100%;
+    object-fit:cover;
+    object-position:center center;
+    display:block;
+    z-index:0;
   }
-  .hero-bg::after{
-    content:'';position:absolute;inset:0;
-    background:linear-gradient(to right, rgba(10,9,8,0.88) 38%, rgba(10,9,8,0.15) 100%);
+
+  /* Gradient overlay */
+  .hero-overlay{
+    position:absolute;inset:0;z-index:1;
+    background:
+      linear-gradient(90deg, rgba(10,9,8,0.97) 0%, rgba(10,9,8,0.82) 35%, rgba(10,9,8,0.22) 68%, rgba(10,9,8,0.04) 100%),
+      linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.04) 50%, rgba(0,0,0,0.55) 100%);
   }
+
+  /* HERO CONTENT */
   .hero-content{
     position:relative;z-index:2;
-    padding:0 5rem;
-    max-width:560px;
+    min-height:100vh;
+    display:flex;align-items:center;
+    padding:0 5rem 5rem;
   }
+  .copy{max-width:560px;transform:translateY(-2vh)}
   .hero-eyebrow{
     font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;
     color:var(--gold);margin-bottom:1.5rem;
@@ -68,33 +80,32 @@
   }
   .hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--gold)}
   .hero-title{
-    font-size:clamp(3rem,5vw,5.5rem);
-    font-weight:400;line-height:1.05;
-    letter-spacing:-0.01em;
+    font-size:clamp(3.5rem,7vw,7.5rem);
+    font-weight:400;line-height:0.92;
+    letter-spacing:-0.055em;
     color:var(--off-white);
-    margin-bottom:1rem;
+    margin-bottom:1.2rem;
+    display:flex;flex-direction:column;
   }
-  .hero-title em{
-    display:block;font-style:italic;
-    color:var(--gold-light);
-  }
+  .hero-title .by{font-style:italic;color:var(--gold-light);font-size:0.82em;line-height:0.72}
+  .hero-title .brand{font-style:italic;color:var(--gold-light);line-height:0.88}
   .hero-sub{
-    font-size:0.9rem;line-height:1.8;
-    color:var(--muted);max-width:380px;
-    margin-bottom:2.5rem;font-family:sans-serif;
-    letter-spacing:0.02em;
+    font-size:0.9rem;line-height:1.85;
+    color:rgba(232,228,220,0.56);
+    max-width:460px;margin-bottom:2.8rem;
+    font-family:sans-serif;letter-spacing:0.02em;
   }
   .hero-cta{
     display:inline-flex;align-items:center;gap:0.75rem;
     font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;
     color:var(--off-white);text-decoration:none;
-    border-bottom:1px solid var(--gold-dim);
-    padding-bottom:0.3rem;
-    transition:color 0.3s, border-color 0.3s;
+    border-bottom:1px solid rgba(184,160,112,0.55);
+    padding-bottom:0.6rem;
+    transition:color 0.3s,border-color 0.3s;
   }
   .hero-cta:hover{color:var(--gold-light);border-color:var(--gold-light)}
-  .cta-arrow{font-size:1rem;transition:transform 0.3s}
-  .hero-cta:hover .cta-arrow{transform:translateX(4px)}
+  .hero-cta:hover .arrow{transform:translateX(4px)}
+  .arrow{transition:transform 0.3s}
 
   /* GOODWOOD BADGE */
   .goodwood-badge{
@@ -108,88 +119,108 @@
   }
 
   /* HOTSPOTS */
-  .hotspot-layer{position:absolute;inset:0;z-index:3;pointer-events:none}
+  .hotspots{
+    position:absolute;inset:0;z-index:4;pointer-events:none;
+  }
   .hotspot{
-    position:absolute;pointer-events:all;cursor:pointer;
-  }
-  .hotspot-dot{
-    width:12px;height:12px;border-radius:50%;
-    background:var(--gold);
-    position:relative;
-    transition:transform 0.2s;
-  }
-  .hotspot-dot::before{
-    content:'';position:absolute;inset:-6px;
-    border-radius:50%;border:1px solid var(--gold-dim);
-    animation:pulse 2.5s ease-out infinite;
-  }
-  .hotspot-dot::after{
-    content:'';position:absolute;inset:-12px;
-    border-radius:50%;border:1px solid var(--gold-dim);
-    animation:pulse 2.5s ease-out 0.4s infinite;
-    opacity:0.5;
-  }
-  @keyframes pulse{
-    0%{transform:scale(0.6);opacity:0.8}
-    100%{transform:scale(1.8);opacity:0}
-  }
-  .hotspot:hover .hotspot-dot{transform:scale(1.3)}
-  .hotspot-popup{
     position:absolute;
-    background:rgba(15,13,11,0.96);
+    width:15px;height:15px;
+    pointer-events:auto;cursor:pointer;
+    transform:translate(-50%,-50%);
+  }
+  .hotspot::before{
+    content:'';position:absolute;inset:4px;
+    border-radius:50%;background:var(--gold);
+    box-shadow:0 0 0 0 rgba(184,160,112,0.45);
+    animation:pulse 2.6s infinite;
+  }
+  .hotspot::after{
+    content:'';position:absolute;inset:0;
+    border:1px solid rgba(184,160,112,0.35);
+    border-radius:50%;
+    transform:scale(1.35);opacity:0;
+    transition:opacity 0.25s,transform 0.25s;
+  }
+  .hotspot:hover::after{opacity:1;transform:scale(1.9)}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(184,160,112,0.45)}
+    70%{box-shadow:0 0 0 12px rgba(184,160,112,0)}
+    100%{box-shadow:0 0 0 0 rgba(184,160,112,0)}
+  }
+
+  /* POPUP CARDS */
+  .card{
+    position:absolute;
+    left:28px;top:50%;
+    width:240px;
+    padding:1.1rem 1.25rem;
+    transform:translateY(-50%) translateX(8px);
+    background:rgba(10,9,8,0.96);
     border:1px solid var(--gold-dim);
-    padding:1rem 1.25rem;
-    width:210px;
-    opacity:0;pointer-events:none;
-    transform:translateY(6px);
-    transition:opacity 0.25s, transform 0.25s;
+    backdrop-filter:blur(12px);
+    opacity:0;visibility:hidden;
+    transition:opacity 0.22s,transform 0.22s,visibility 0.22s;
+    pointer-events:none;
   }
-  .hotspot:hover .hotspot-popup,
-  .hotspot.active .hotspot-popup{
-    opacity:1;pointer-events:all;transform:translateY(0);
+  .hotspot:hover .card{
+    opacity:1;visibility:visible;
+    transform:translateY(-50%) translateX(0);
+    pointer-events:all;
   }
+  .card::before{
+    content:'';position:absolute;
+    width:46px;height:1px;
+    left:-46px;top:50%;
+    background:rgba(184,160,112,0.7);
+  }
+  .card.flip-left{
+    left:auto;right:28px;
+    transform:translateY(-50%) translateX(-8px);
+  }
+  .hotspot:hover .card.flip-left{transform:translateY(-50%) translateX(0)}
+  .card.flip-left::before{left:auto;right:-46px}
+  .card.flip-down{
+    left:auto;right:28px;top:28px;
+    transform:translateY(0) translateX(-8px);
+  }
+  .hotspot:hover .card.flip-down{transform:translateY(0) translateX(0)}
+  .card.flip-down::before{top:16px;left:auto;right:-46px}
+
   .popup-label{
     font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;
     color:var(--gold);margin-bottom:0.4rem;font-family:sans-serif;
   }
-  .popup-title{
-    font-size:1rem;color:var(--off-white);
-    margin-bottom:0.35rem;
+  .popup-title{font-size:1.1rem;color:var(--off-white);margin-bottom:0.4rem;font-weight:400}
+  .popup-desc{font-size:0.75rem;line-height:1.6;color:var(--muted);font-family:sans-serif}
+  .specs{
+    margin-top:0.75rem;display:grid;gap:5px;
+    font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;
+    color:rgba(232,228,220,0.75);font-family:sans-serif;
   }
-  .popup-desc{
-    font-size:0.75rem;line-height:1.6;
-    color:var(--muted);font-family:sans-serif;
+  .specs div{
+    display:flex;justify-content:space-between;gap:1rem;
+    border-top:1px solid rgba(232,228,220,0.1);padding-top:5px;
   }
+  .specs span:last-child{color:var(--gold);text-align:right}
 
   /* STATS */
   .stats{
-    position:relative;z-index:2;
-    display:flex;gap:0;
+    display:flex;
     border-top:1px solid rgba(184,160,112,0.15);
     border-bottom:1px solid rgba(184,160,112,0.15);
     background:#0d0c0b;
+    position:relative;z-index:2;
   }
-  .stat{
-    flex:1;padding:2rem 2.5rem;
-    border-right:1px solid rgba(184,160,112,0.15);
-    text-align:center;
-  }
+  .stat{flex:1;padding:2rem 2.5rem;border-right:1px solid rgba(184,160,112,0.15);text-align:center}
   .stat:last-child{border-right:none}
-  .stat-num{
-    font-size:2.2rem;color:var(--off-white);
-    letter-spacing:-0.02em;margin-bottom:0.25rem;
-  }
+  .stat-num{font-size:2.2rem;color:var(--off-white);letter-spacing:-0.02em;margin-bottom:0.25rem}
   .stat-num span{color:var(--gold);font-size:1.2rem}
-  .stat-label{
-    font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;
-    color:var(--muted);font-family:sans-serif;
-  }
+  .stat-label{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);font-family:sans-serif}
 
   /* ABOUT */
   .about{
     padding:7rem 5rem;
-    display:grid;grid-template-columns:1fr 1fr;
-    gap:5rem;align-items:center;
+    display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;
     background:var(--dark2);
   }
   .about-tag{
@@ -198,77 +229,38 @@
     display:flex;align-items:center;gap:0.75rem;
   }
   .about-tag::before{content:'';display:block;width:24px;height:1px;background:var(--gold)}
-  .about-heading{
-    font-size:clamp(1.8rem,2.5vw,2.8rem);
-    font-weight:400;line-height:1.2;
-    color:var(--off-white);
-    margin-bottom:1.5rem;
-  }
-  .about-body{
-    font-size:0.88rem;line-height:1.9;
-    color:var(--muted);font-family:sans-serif;letter-spacing:0.02em;
-  }
+  .about-heading{font-size:clamp(1.8rem,2.5vw,2.8rem);font-weight:400;line-height:1.2;color:var(--off-white);margin-bottom:1.5rem}
+  .about-body{font-size:0.88rem;line-height:1.9;color:var(--muted);font-family:sans-serif;letter-spacing:0.02em}
   .about-right{padding-left:2rem}
-  .about-quote{
-    font-size:1.3rem;line-height:1.6;
-    font-style:italic;color:var(--gold-light);
-    margin-bottom:2rem;
-  }
-  .about-quote-attr{
-    font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;
-    color:var(--muted);font-family:sans-serif;
-  }
+  .about-quote{font-size:1.3rem;line-height:1.6;font-style:italic;color:var(--gold-light);margin-bottom:2rem}
+  .about-quote-attr{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--muted);font-family:sans-serif}
 
   /* PARTNERSHIP */
   .partnership{
-    padding:7rem 5rem;
-    text-align:center;
+    padding:7rem 5rem;text-align:center;
     background:var(--dark);
     border-top:1px solid rgba(184,160,112,0.12);
   }
-  .partner-tag{
-    font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;
-    color:var(--gold);margin-bottom:1.5rem;font-family:sans-serif;
+  .partner-tag{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;font-family:sans-serif}
+  .partner-heading{font-size:clamp(1.8rem,2.5vw,2.8rem);font-weight:400;color:var(--off-white);margin-bottom:1rem}
+  .partner-sub{font-size:0.88rem;line-height:1.8;color:var(--muted);max-width:520px;margin:0 auto 3rem;font-family:sans-serif}
+  .partner-form{max-width:480px;margin:0 auto;display:flex;flex-direction:column;gap:1rem}
+  .partner-form input,.partner-form textarea{
+    background:transparent;border:none;
+    border-bottom:1px solid rgba(184,160,112,0.3);
+    padding:0.75rem 0;color:var(--off-white);
+    font-family:sans-serif;font-size:0.85rem;letter-spacing:0.05em;
+    outline:none;width:100%;transition:border-color 0.3s;
   }
-  .partner-heading{
-    font-size:clamp(1.8rem,2.5vw,2.8rem);
-    font-weight:400;color:var(--off-white);
-    margin-bottom:1rem;
-  }
-  .partner-sub{
-    font-size:0.88rem;line-height:1.8;
-    color:var(--muted);max-width:520px;
-    margin:0 auto 3rem;font-family:sans-serif;
-  }
-  .partner-form{
-    max-width:480px;margin:0 auto;
-    display:flex;flex-direction:column;gap:1rem;
-  }
-  .partner-form input,
-  .partner-form textarea{
-    background:transparent;
-    border:none;border-bottom:1px solid rgba(184,160,112,0.3);
-    padding:0.75rem 0;
-    color:var(--off-white);font-family:sans-serif;
-    font-size:0.85rem;letter-spacing:0.05em;
-    outline:none;width:100%;
-    transition:border-color 0.3s;
-  }
-  .partner-form input::placeholder,
-  .partner-form textarea::placeholder{color:var(--muted);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase}
-  .partner-form input:focus,
-  .partner-form textarea:focus{border-bottom-color:var(--gold)}
+  .partner-form input::placeholder,.partner-form textarea::placeholder{color:var(--muted);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase}
+  .partner-form input:focus,.partner-form textarea:focus{border-bottom-color:var(--gold)}
   .partner-form textarea{resize:none;height:80px}
   .partner-form button{
-    margin-top:1rem;
-    background:transparent;
-    border:1px solid var(--gold-dim);
-    padding:0.9rem 2.5rem;
-    color:var(--gold-light);
-    font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;
-    font-family:sans-serif;cursor:pointer;
-    transition:background 0.3s, color 0.3s;
-    align-self:flex-start;
+    margin-top:1rem;background:transparent;
+    border:1px solid var(--gold-dim);padding:0.9rem 2.5rem;
+    color:var(--gold-light);font-size:0.7rem;letter-spacing:0.3em;
+    text-transform:uppercase;font-family:sans-serif;cursor:pointer;
+    transition:background 0.3s,color 0.3s;align-self:flex-start;
   }
   .partner-form button:hover{background:rgba(184,160,112,0.1);color:var(--off-white)}
 
@@ -280,102 +272,106 @@
     background:var(--dark);
   }
   .footer-brand img{height:22px;opacity:0.5;filter:brightness(0) invert(1)}
-  .footer-copy{
-    font-size:0.68rem;letter-spacing:0.1em;color:var(--muted);font-family:sans-serif;
+  .footer-copy{font-size:0.68rem;letter-spacing:0.1em;color:var(--muted);font-family:sans-serif}
+
+  @media(max-width:980px){
+    .hotspots{display:none}
+    nav{display:none}
+    .hero-content{padding:0 2rem 5rem}
+    .about,.partnership{padding:4rem 2rem}
+    .about{grid-template-columns:1fr}
+    .about-right{padding-left:0}
+    footer{padding:2rem;flex-direction:column;gap:1rem}
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <div class="nav-logo">
-    <img src="text63.webp" alt="ElectricSpoke" style="filter:brightness(0) invert(1);">
-  </div>
+  <div class="nav-logo"><img src="text63.webp" alt="ElectricSpoke"></div>
   <ul class="nav-links">
     <li><a href="#about">The Vision</a></li>
     <li><a href="#partnership">Partner With Us</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
-<section class="hero" id="hero">
-  <div class="hero-bg"></div>
+<main class="hero" id="hero">
+  <!-- Actual img element — enables pixel-perfect hotspot anchoring -->
+  <img id="hero-img" class="hero-img" src="electricspoke-hero-bg.png" alt="Sebastian by ElectricSpoke">
+  <div class="hero-overlay"></div>
 
   <div class="hero-content">
-    <div class="hero-eyebrow">Introducing</div>
-    <h1 class="hero-title">
-      Sebastian
-      <em>by ElectricSpoke</em>
-    </h1>
-    <p class="hero-sub">
-      Precision-engineered for the discerning urban commuter. Sebastian reimagines personal mobility as an object of quiet confidence — where function and form are one.
-    </p>
-    <a href="#about" class="hero-cta">
-      Discover Sebastian <span class="cta-arrow">→</span>
-    </a>
+    <div class="copy">
+      <div class="hero-eyebrow">Introducing</div>
+      <h1 class="hero-title">
+        Sebastian
+        <span class="by">by</span>
+        <span class="brand">ElectricSpoke</span>
+      </h1>
+      <p class="hero-sub">
+        Precision-engineered for the discerning urban commuter.
+        Sebastian reimagines personal mobility as an object of
+        quiet confidence — where function and form are one.
+      </p>
+      <a href="#about" class="hero-cta">Discover Sebastian <span class="arrow">→</span></a>
+    </div>
   </div>
 
-  <!-- HOTSPOT LAYER -->
-  <div class="hotspot-layer">
+  <div class="hotspots">
+    <!-- data-img-x / data-img-y = % of the SOURCE image dimensions -->
 
-    <!-- Hotspot 1: Battery / Deck -->
-    <div class="hotspot" style="left:55%;top:74%;">
-      <div class="hotspot-dot"></div>
-      <div class="hotspot-popup" style="bottom:28px;left:16px;">
-        <div class="popup-label">Power</div>
-        <div class="popup-title">Long-range Battery</div>
-        <div class="popup-desc">An integrated deck-mounted cell delivers a refined 50+ km range on a single charge — enough for a full day of city travel.</div>
-      </div>
-    </div>
-
-    <!-- Hotspot 2: Rear hub motor -->
-    <div class="hotspot" style="left:72%;top:70%;">
-      <div class="hotspot-dot"></div>
-      <div class="hotspot-popup" style="bottom:28px;right:16px;">
+    <!-- Hotspot 1: Front wheel / motor -->
+    <div class="hotspot" data-img-x="42.0" data-img-y="78.0">
+      <div class="card">
         <div class="popup-label">Performance</div>
-        <div class="popup-title">Hub Drive Motor</div>
-        <div class="popup-desc">A whisper-quiet rear hub motor delivers smooth, instant torque — Sebastian accelerates with the composure of a well-bred thoroughbred.</div>
+        <div class="popup-title">Rear Hub Motor</div>
+        <div class="popup-desc">Quiet electric drive selected for clean packaging and confident hill performance.</div>
+        <div class="specs">
+          <div><span>Voltage</span><span>48 V nominal</span></div>
+          <div><span>Power</span><span>1000 W target</span></div>
+        </div>
       </div>
     </div>
 
-    <!-- Hotspot 3: Frame / Stem -->
-    <div class="hotspot" style="left:65%;top:32%;">
-      <div class="hotspot-dot"></div>
-      <div class="hotspot-popup" style="top:28px;right:16px;">
+    <!-- Hotspot 2: Battery under deck -->
+    <div class="hotspot" data-img-x="62.5" data-img-y="79.8">
+      <div class="card flip-left">
+        <div class="popup-label">Power</div>
+        <div class="popup-title">Battery System</div>
+        <div class="popup-desc">Low-slung battery concept designed to keep Sebastian visually balanced and mechanically simple.</div>
+        <div class="specs">
+          <div><span>Pack</span><span>13S concept</span></div>
+          <div><span>Position</span><span>Under deck</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hotspot 3: Handlebar / controls -->
+    <div class="hotspot" data-img-x="79.2" data-img-y="7.0">
+      <div class="card flip-down">
         <div class="popup-label">Craftsmanship</div>
-        <div class="popup-title">Aerospace-grade Frame</div>
-        <div class="popup-desc">Hand-finished aluminium alloy construction. Sebastian weighs just 14 kg yet carries a rider with effortless poise. Built to last generations.</div>
+        <div class="popup-title">Control Interface</div>
+        <div class="popup-desc">A minimal cockpit with compact display, refined controls and considered metal and leather detailing.</div>
+        <div class="specs">
+          <div><span>Display</span><span>Round TFT</span></div>
+          <div><span>Finish</span><span>Metal / leather</span></div>
+        </div>
       </div>
     </div>
-
   </div>
 
-  <!-- GOODWOOD BADGE -->
   <div class="goodwood-badge">
     <div class="badge-line"></div>
     <div class="badge-text">Debuting at Goodwood Festival of Speed · 2025</div>
   </div>
-</section>
+</main>
 
-<!-- STATS BAR -->
+<!-- STATS -->
 <div class="stats">
-  <div class="stat">
-    <div class="stat-num">50<span>+</span></div>
-    <div class="stat-label">km range</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">25<span>km/h</span></div>
-    <div class="stat-label">top speed</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">14<span>kg</span></div>
-    <div class="stat-label">total weight</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num">3<span>h</span></div>
-    <div class="stat-label">full charge</div>
-  </div>
+  <div class="stat"><div class="stat-num">50<span>+</span></div><div class="stat-label">km range</div></div>
+  <div class="stat"><div class="stat-num">25<span>km/h</span></div><div class="stat-label">top speed</div></div>
+  <div class="stat"><div class="stat-num">14<span>kg</span></div><div class="stat-label">total weight</div></div>
+  <div class="stat"><div class="stat-num">3<span>h</span></div><div class="stat-label">full charge</div></div>
 </div>
 
 <!-- ABOUT -->
@@ -410,32 +406,59 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <div class="footer-brand">
-    <img src="text63.webp" alt="ElectricSpoke">
-  </div>
+  <div class="footer-brand"><img src="text63.webp" alt="ElectricSpoke"></div>
   <div class="footer-copy">© 2025 ElectricSpoke. All rights reserved.</div>
 </footer>
 
 <script>
-  document.querySelectorAll('.hotspot').forEach(hs => {
-    hs.addEventListener('click', e => {
-      e.stopPropagation();
-      const isActive = hs.classList.contains('active');
-      document.querySelectorAll('.hotspot').forEach(h => h.classList.remove('active'));
-      if (!isActive) hs.classList.add('active');
+(function(){
+  const img = document.getElementById('hero-img');
+
+  function positionHotspots(){
+    if(window.innerWidth <= 980) return;
+    // Get the exact rendered position and size of the <img> element
+    const r = img.getBoundingClientRect();
+    const hero = document.querySelector('.hero').getBoundingClientRect();
+
+    // Natural image dimensions
+    const nw = img.naturalWidth;
+    const nh = img.naturalHeight;
+
+    // object-fit:cover scale
+    const scale = Math.max(r.width / nw, r.height / nh);
+    const renderedW = nw * scale;
+    const renderedH = nh * scale;
+
+    // Offset within the img element (cover centres by default)
+    const ox = (r.width  - renderedW) / 2;
+    const oy = (r.height - renderedH) / 2;
+
+    document.querySelectorAll('.hotspot[data-img-x]').forEach(spot => {
+      const x = parseFloat(spot.dataset.imgX) / 100;
+      const y = parseFloat(spot.dataset.imgY) / 100;
+      // Position relative to hero (parent of .hotspots)
+      const left = (r.left - hero.left) + ox + renderedW * x;
+      const top  = (r.top  - hero.top)  + oy + renderedH * y;
+      spot.style.left = left + 'px';
+      spot.style.top  = top  + 'px';
     });
+  }
+
+  if(img.complete && img.naturalWidth) {
+    positionHotspots();
+  } else {
+    img.addEventListener('load', positionHotspots);
+  }
+  window.addEventListener('resize', positionHotspots);
+})();
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
   });
-  document.addEventListener('click', () => {
-    document.querySelectorAll('.hotspot').forEach(h => h.classList.remove('active'));
-  });
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
-      if (target) { e.preventDefault(); target.scrollIntoView({behavior:'smooth'}); }
-    });
-  });
+});
 </script>
 
 </body>

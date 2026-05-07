@@ -421,21 +421,19 @@
   // Pin hotspots to exact pixel positions on the rendered background image
   // using the same technique as ChatGPT — calculate cover scale & offset, then place dots
   (function(){
-    const HERO_IMAGE = 'Scooter_side_profile.png'; //electricspoke-hero-bg.png
+    const HERO_IMAGE = 'electricspoke-hero-bg.png';
     const img = new Image();
     img.src = HERO_IMAGE;
 
     function positionHotspots(){
       const hero = document.querySelector('.hero');
       if(!hero || !img.naturalWidth || window.innerWidth <= 980) return;
-      // Use offsetWidth/offsetHeight (CSS pixels, no subpixel rounding) for consistency
-      const W = hero.offsetWidth;
-      const H = hero.offsetHeight;
-      const scale = Math.max(W / img.naturalWidth, H / img.naturalHeight);
+      const rect = hero.getBoundingClientRect();
+      const scale = Math.max(rect.width / img.naturalWidth, rect.height / img.naturalHeight);
       const renderedW = img.naturalWidth * scale;
       const renderedH = img.naturalHeight * scale;
-      const offsetX = (W - renderedW) / 2;
-      const offsetY = (H - renderedH) / 2;
+      const offsetX = (rect.width - renderedW) / 2;
+      const offsetY = (rect.height - renderedH) / 2;
 
       document.querySelectorAll('.hotspot[data-bg-x][data-bg-y]').forEach(spot => {
         const x = parseFloat(spot.dataset.bgX) / 100;

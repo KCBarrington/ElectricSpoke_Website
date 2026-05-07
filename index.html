@@ -43,10 +43,26 @@
     position:relative;
     width:100%;min-height:100vh;
     overflow:hidden;
+    background:#0a0908;
+  }
+
+  /* Scooter image — absolutely fills hero, object-fit cover */
+  .hero-img{
+    position:absolute;
+    inset:0;
+    width:100%;height:100%;
+    object-fit:cover;
+    object-position:center center;
+    display:block;
+    z-index:0;
+  }
+
+  /* Gradient overlay */
+  .hero-overlay{
+    position:absolute;inset:0;z-index:1;
     background:
       linear-gradient(90deg, rgba(10,9,8,0.97) 0%, rgba(10,9,8,0.82) 35%, rgba(10,9,8,0.22) 68%, rgba(10,9,8,0.04) 100%),
-      linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.04) 50%, rgba(0,0,0,0.55) 100%),
-      url('electricspoke-hero-bg.png') center center / cover no-repeat;
+      linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.04) 50%, rgba(0,0,0,0.55) 100%);
   }
 
   /* HERO CONTENT */
@@ -64,20 +80,15 @@
   }
   .hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--gold)}
   .hero-title{
-    font-size:clamp(3.5rem,7vw,7.5rem);
+    font-size:clamp(2.8rem,5.2vw,5.8rem);
     font-weight:400;line-height:0.92;
     letter-spacing:-0.055em;
     color:var(--off-white);
     margin-bottom:1.2rem;
     display:flex;flex-direction:column;
   }
-  .hero-title .by{
-    font-style:italic;color:var(--gold-light);
-    font-size:0.82em;line-height:0.72;
-  }
-  .hero-title .brand{
-    font-style:italic;color:var(--gold-light);line-height:0.88;
-  }
+  .hero-title .by{font-style:italic;color:var(--gold-light);font-size:0.82em;line-height:0.72}
+  .hero-title .brand{font-style:italic;color:var(--gold-light);line-height:0.88}
   .hero-sub{
     font-size:0.9rem;line-height:1.85;
     color:rgba(232,228,220,0.56);
@@ -156,35 +167,24 @@
     transform:translateY(-50%) translateX(0);
     pointer-events:all;
   }
-  /* connector line */
   .card::before{
     content:'';position:absolute;
     width:46px;height:1px;
     left:-46px;top:50%;
     background:rgba(184,160,112,0.7);
   }
-  /* flip cards that would go off right edge */
   .card.flip-left{
     left:auto;right:28px;
     transform:translateY(-50%) translateX(-8px);
   }
-  .hotspot:hover .card.flip-left{
-    transform:translateY(-50%) translateX(0);
-  }
-  .card.flip-left::before{
-    left:auto;right:-46px;
-  }
-  /* card that appears above (for top hotspot) */
+  .hotspot:hover .card.flip-left{transform:translateY(-50%) translateX(0)}
+  .card.flip-left::before{left:auto;right:-46px}
   .card.flip-down{
     left:auto;right:28px;top:28px;
     transform:translateY(0) translateX(-8px);
   }
-  .hotspot:hover .card.flip-down{
-    transform:translateY(0) translateX(0);
-  }
-  .card.flip-down::before{
-    top:16px;left:auto;right:-46px;
-  }
+  .hotspot:hover .card.flip-down{transform:translateY(0) translateX(0)}
+  .card.flip-down::before{top:16px;left:auto;right:-46px}
 
   .popup-label{
     font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;
@@ -193,8 +193,7 @@
   .popup-title{font-size:1.1rem;color:var(--off-white);margin-bottom:0.4rem;font-weight:400}
   .popup-desc{font-size:0.75rem;line-height:1.6;color:var(--muted);font-family:sans-serif}
   .specs{
-    margin-top:0.75rem;
-    display:grid;gap:5px;
+    margin-top:0.75rem;display:grid;gap:5px;
     font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;
     color:rgba(232,228,220,0.75);font-family:sans-serif;
   }
@@ -212,11 +211,7 @@
     background:#0d0c0b;
     position:relative;z-index:2;
   }
-  .stat{
-    flex:1;padding:2rem 2.5rem;
-    border-right:1px solid rgba(184,160,112,0.15);
-    text-align:center;
-  }
+  .stat{flex:1;padding:2rem 2.5rem;border-right:1px solid rgba(184,160,112,0.15);text-align:center}
   .stat:last-child{border-right:none}
   .stat-num{font-size:2.2rem;color:var(--off-white);letter-spacing:-0.02em;margin-bottom:0.25rem}
   .stat-num span{color:var(--gold);font-size:1.2rem}
@@ -293,9 +288,7 @@
 <body>
 
 <nav>
-  <div class="nav-logo">
-    <img src="text63.webp" alt="ElectricSpoke">
-  </div>
+  <div class="nav-logo"><img src="text63.webp" alt="ElectricSpoke"></div>
   <ul class="nav-links">
     <li><a href="#about">The Vision</a></li>
     <li><a href="#partnership">Partner With Us</a></li>
@@ -303,6 +296,10 @@
 </nav>
 
 <main class="hero" id="hero">
+  <!-- Actual img element — enables pixel-perfect hotspot anchoring -->
+  <img id="hero-img" class="hero-img" src="electricspoke-hero-bg.png" alt="Sebastian by ElectricSpoke">
+  <div class="hero-overlay"></div>
+
   <div class="hero-content">
     <div class="copy">
       <div class="hero-eyebrow">Introducing</div>
@@ -316,17 +313,15 @@
         Sebastian reimagines personal mobility as an object of
         quiet confidence — where function and form are one.
       </p>
-      <a href="#about" class="hero-cta">
-        Discover Sebastian <span class="arrow">→</span>
-      </a>
+      <a href="#about" class="hero-cta">Discover Sebastian <span class="arrow">→</span></a>
     </div>
   </div>
 
-  <!-- Hotspots — positioned by JS using image-anchored coordinates -->
   <div class="hotspots">
+    <!-- data-img-x / data-img-y = % of the SOURCE image dimensions -->
 
-    <!-- Hotspot 1: Rear hub motor -->
-    <div class="hotspot" data-bg-x="42.0" data-bg-y="78.0">
+    <!-- Hotspot 1: Front wheel / motor -->
+    <div class="hotspot" data-img-x="42.0" data-img-y="78.0">
       <div class="card">
         <div class="popup-label">Performance</div>
         <div class="popup-title">Rear Hub Motor</div>
@@ -338,9 +333,9 @@
       </div>
     </div>
 
-    <!-- Hotspot 2: Battery -->
-    <div class="hotspot" data-bg-x="62.5" data-bg-y="79.8">
-      <div class="card">
+    <!-- Hotspot 2: Battery under deck -->
+    <div class="hotspot" data-img-x="62.5" data-img-y="79.8">
+      <div class="card flip-left">
         <div class="popup-label">Power</div>
         <div class="popup-title">Battery System</div>
         <div class="popup-desc">Low-slung battery concept designed to keep Sebastian visually balanced and mechanically simple.</div>
@@ -351,8 +346,8 @@
       </div>
     </div>
 
-    <!-- Hotspot 3: Controls / handlebar -->
-    <div class="hotspot" data-bg-x="79.2" data-bg-y="7.0">
+    <!-- Hotspot 3: Handlebar / controls -->
+    <div class="hotspot" data-img-x="79.2" data-img-y="7.0">
       <div class="card flip-down">
         <div class="popup-label">Craftsmanship</div>
         <div class="popup-title">Control Interface</div>
@@ -363,7 +358,6 @@
         </div>
       </div>
     </div>
-
   </div>
 
   <div class="goodwood-badge">
@@ -418,44 +412,53 @@
 </footer>
 
 <script>
-  // Pin hotspots to exact pixel positions on the rendered background image
-  // using the same technique as ChatGPT — calculate cover scale & offset, then place dots
-  (function(){
-    const HERO_IMAGE = 'electricspoke-hero-bg.png';
-    const img = new Image();
-    img.src = HERO_IMAGE;
+(function(){
+  const img = document.getElementById('hero-img');
 
-    function positionHotspots(){
-      const hero = document.querySelector('.hero');
-      if(!hero || !img.naturalWidth || window.innerWidth <= 980) return;
-      const rect = hero.getBoundingClientRect();
-      const scale = Math.max(rect.width / img.naturalWidth, rect.height / img.naturalHeight);
-      const renderedW = img.naturalWidth * scale;
-      const renderedH = img.naturalHeight * scale;
-      const offsetX = (rect.width - renderedW) / 2;
-      const offsetY = (rect.height - renderedH) / 2;
+  function positionHotspots(){
+    if(window.innerWidth <= 980) return;
+    // Get the exact rendered position and size of the <img> element
+    const r = img.getBoundingClientRect();
+    const hero = document.querySelector('.hero').getBoundingClientRect();
 
-      document.querySelectorAll('.hotspot[data-bg-x][data-bg-y]').forEach(spot => {
-        const x = parseFloat(spot.dataset.bgX) / 100;
-        const y = parseFloat(spot.dataset.bgY) / 100;
-        spot.style.left = (offsetX + renderedW * x) + 'px';
-        spot.style.top  = (offsetY + renderedH * y) + 'px';
-      });
-    }
+    // Natural image dimensions
+    const nw = img.naturalWidth;
+    const nh = img.naturalHeight;
 
-    img.onload = positionHotspots;
-    window.addEventListener('resize', positionHotspots);
-    window.addEventListener('load', positionHotspots);
-    positionHotspots();
-  })();
+    // object-fit:cover scale
+    const scale = Math.max(r.width / nw, r.height / nh);
+    const renderedW = nw * scale;
+    const renderedH = nh * scale;
 
-  // Smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const t = document.querySelector(a.getAttribute('href'));
-      if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+    // Offset within the img element (cover centres by default)
+    const ox = (r.width  - renderedW) / 2;
+    const oy = (r.height - renderedH) / 2;
+
+    document.querySelectorAll('.hotspot[data-img-x]').forEach(spot => {
+      const x = parseFloat(spot.dataset.imgX) / 100;
+      const y = parseFloat(spot.dataset.imgY) / 100;
+      // Position relative to hero (parent of .hotspots)
+      const left = (r.left - hero.left) + ox + renderedW * x;
+      const top  = (r.top  - hero.top)  + oy + renderedH * y;
+      spot.style.left = left + 'px';
+      spot.style.top  = top  + 'px';
     });
+  }
+
+  if(img.complete && img.naturalWidth) {
+    positionHotspots();
+  } else {
+    img.addEventListener('load', positionHotspots);
+  }
+  window.addEventListener('resize', positionHotspots);
+})();
+
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
   });
+});
 </script>
 
 </body>

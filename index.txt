@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElectricSpoke – Sebastian</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --gold:#b8a070;
+    --gold-light:#d4b88a;
+    --gold-dim:#7a6a4a;
+    --off-white:#e8e4dc;
+    --muted:#8a8680;
+    --dark:#0a0908;
+    --dark2:#111010;
+    --dark3:#1a1918;
+  }
+  html{scroll-behavior:smooth}
+  body{
+    background:#0a0908;
+    color:var(--off-white);
+    font-family:'Georgia',serif;
+    overflow-x:hidden;
+  }
+
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:1.5rem 3rem;
+    background:linear-gradient(to bottom,rgba(10,9,8,0.9),transparent);
+  }
+  .nav-logo img{height:28px;opacity:0.9}
+  .nav-links{display:flex;gap:2.5rem;list-style:none}
+  .nav-links a{
+    font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;
+    color:var(--muted);text-decoration:none;transition:color 0.3s;
+  }
+  .nav-links a:hover{color:var(--off-white)}
+
+  /* HERO */
+  .hero{
+    position:relative;min-height:100vh;
+    display:flex;align-items:center;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;inset:0;
+    background-image:url('electricspoke-hero-bg.png');
+    background-size:cover;
+    background-position:center right;
+    background-repeat:no-repeat;
+  }
+  .hero-bg::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(to right, rgba(10,9,8,0.88) 38%, rgba(10,9,8,0.15) 100%);
+  }
+  .hero-content{
+    position:relative;z-index:2;
+    padding:0 5rem;
+    max-width:560px;
+  }
+  .hero-eyebrow{
+    font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:1.5rem;
+    display:flex;align-items:center;gap:0.75rem;
+  }
+  .hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--gold)}
+  .hero-title{
+    font-size:clamp(3rem,5vw,5.5rem);
+    font-weight:400;line-height:1.05;
+    letter-spacing:-0.01em;
+    color:var(--off-white);
+    margin-bottom:1rem;
+  }
+  .hero-title em{
+    display:block;font-style:italic;
+    color:var(--gold-light);
+  }
+  .hero-sub{
+    font-size:0.9rem;line-height:1.8;
+    color:var(--muted);max-width:380px;
+    margin-bottom:2.5rem;font-family:sans-serif;
+    letter-spacing:0.02em;
+  }
+  .hero-cta{
+    display:inline-flex;align-items:center;gap:0.75rem;
+    font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;
+    color:var(--off-white);text-decoration:none;
+    border-bottom:1px solid var(--gold-dim);
+    padding-bottom:0.3rem;
+    transition:color 0.3s, border-color 0.3s;
+  }
+  .hero-cta:hover{color:var(--gold-light);border-color:var(--gold-light)}
+  .cta-arrow{font-size:1rem;transition:transform 0.3s}
+  .hero-cta:hover .cta-arrow{transform:translateX(4px)}
+
+  /* GOODWOOD BADGE */
+  .goodwood-badge{
+    position:absolute;bottom:2.5rem;left:5rem;z-index:2;
+    display:flex;align-items:center;gap:1rem;
+  }
+  .badge-line{width:28px;height:1px;background:var(--gold-dim)}
+  .badge-text{
+    font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;
+    color:var(--gold-dim);font-family:sans-serif;
+  }
+
+  /* HOTSPOTS */
+  .hotspot-layer{position:absolute;inset:0;z-index:3;pointer-events:none}
+  .hotspot{
+    position:absolute;pointer-events:all;cursor:pointer;
+  }
+  .hotspot-dot{
+    width:12px;height:12px;border-radius:50%;
+    background:var(--gold);
+    position:relative;
+    transition:transform 0.2s;
+  }
+  .hotspot-dot::before{
+    content:'';position:absolute;inset:-6px;
+    border-radius:50%;border:1px solid var(--gold-dim);
+    animation:pulse 2.5s ease-out infinite;
+  }
+  .hotspot-dot::after{
+    content:'';position:absolute;inset:-12px;
+    border-radius:50%;border:1px solid var(--gold-dim);
+    animation:pulse 2.5s ease-out 0.4s infinite;
+    opacity:0.5;
+  }
+  @keyframes pulse{
+    0%{transform:scale(0.6);opacity:0.8}
+    100%{transform:scale(1.8);opacity:0}
+  }
+  .hotspot:hover .hotspot-dot{transform:scale(1.3)}
+  .hotspot-popup{
+    position:absolute;
+    background:rgba(15,13,11,0.96);
+    border:1px solid var(--gold-dim);
+    padding:1rem 1.25rem;
+    width:210px;
+    opacity:0;pointer-events:none;
+    transform:translateY(6px);
+    transition:opacity 0.25s, transform 0.25s;
+  }
+  .hotspot:hover .hotspot-popup,
+  .hotspot.active .hotspot-popup{
+    opacity:1;pointer-events:all;transform:translateY(0);
+  }
+  .popup-label{
+    font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:0.4rem;font-family:sans-serif;
+  }
+  .popup-title{
+    font-size:1rem;color:var(--off-white);
+    margin-bottom:0.35rem;
+  }
+  .popup-desc{
+    font-size:0.75rem;line-height:1.6;
+    color:var(--muted);font-family:sans-serif;
+  }
+
+  /* STATS */
+  .stats{
+    position:relative;z-index:2;
+    display:flex;gap:0;
+    border-top:1px solid rgba(184,160,112,0.15);
+    border-bottom:1px solid rgba(184,160,112,0.15);
+    background:#0d0c0b;
+  }
+  .stat{
+    flex:1;padding:2rem 2.5rem;
+    border-right:1px solid rgba(184,160,112,0.15);
+    text-align:center;
+  }
+  .stat:last-child{border-right:none}
+  .stat-num{
+    font-size:2.2rem;color:var(--off-white);
+    letter-spacing:-0.02em;margin-bottom:0.25rem;
+  }
+  .stat-num span{color:var(--gold);font-size:1.2rem}
+  .stat-label{
+    font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;
+    color:var(--muted);font-family:sans-serif;
+  }
+
+  /* ABOUT */
+  .about{
+    padding:7rem 5rem;
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:5rem;align-items:center;
+    background:var(--dark2);
+  }
+  .about-tag{
+    font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:1.5rem;font-family:sans-serif;
+    display:flex;align-items:center;gap:0.75rem;
+  }
+  .about-tag::before{content:'';display:block;width:24px;height:1px;background:var(--gold)}
+  .about-heading{
+    font-size:clamp(1.8rem,2.5vw,2.8rem);
+    font-weight:400;line-height:1.2;
+    color:var(--off-white);
+    margin-bottom:1.5rem;
+  }
+  .about-body{
+    font-size:0.88rem;line-height:1.9;
+    color:var(--muted);font-family:sans-serif;letter-spacing:0.02em;
+  }
+  .about-right{padding-left:2rem}
+  .about-quote{
+    font-size:1.3rem;line-height:1.6;
+    font-style:italic;color:var(--gold-light);
+    margin-bottom:2rem;
+  }
+  .about-quote-attr{
+    font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;
+    color:var(--muted);font-family:sans-serif;
+  }
+
+  /* PARTNERSHIP */
+  .partnership{
+    padding:7rem 5rem;
+    text-align:center;
+    background:var(--dark);
+    border-top:1px solid rgba(184,160,112,0.12);
+  }
+  .partner-tag{
+    font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:1.5rem;font-family:sans-serif;
+  }
+  .partner-heading{
+    font-size:clamp(1.8rem,2.5vw,2.8rem);
+    font-weight:400;color:var(--off-white);
+    margin-bottom:1rem;
+  }
+  .partner-sub{
+    font-size:0.88rem;line-height:1.8;
+    color:var(--muted);max-width:520px;
+    margin:0 auto 3rem;font-family:sans-serif;
+  }
+  .partner-form{
+    max-width:480px;margin:0 auto;
+    display:flex;flex-direction:column;gap:1rem;
+  }
+  .partner-form input,
+  .partner-form textarea{
+    background:transparent;
+    border:none;border-bottom:1px solid rgba(184,160,112,0.3);
+    padding:0.75rem 0;
+    color:var(--off-white);font-family:sans-serif;
+    font-size:0.85rem;letter-spacing:0.05em;
+    outline:none;width:100%;
+    transition:border-color 0.3s;
+  }
+  .partner-form input::placeholder,
+  .partner-form textarea::placeholder{color:var(--muted);font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase}
+  .partner-form input:focus,
+  .partner-form textarea:focus{border-bottom-color:var(--gold)}
+  .partner-form textarea{resize:none;height:80px}
+  .partner-form button{
+    margin-top:1rem;
+    background:transparent;
+    border:1px solid var(--gold-dim);
+    padding:0.9rem 2.5rem;
+    color:var(--gold-light);
+    font-size:0.7rem;letter-spacing:0.3em;text-transform:uppercase;
+    font-family:sans-serif;cursor:pointer;
+    transition:background 0.3s, color 0.3s;
+    align-self:flex-start;
+  }
+  .partner-form button:hover{background:rgba(184,160,112,0.1);color:var(--off-white)}
+
+  /* FOOTER */
+  footer{
+    padding:2.5rem 5rem;
+    display:flex;justify-content:space-between;align-items:center;
+    border-top:1px solid rgba(184,160,112,0.1);
+    background:var(--dark);
+  }
+  .footer-brand img{height:22px;opacity:0.5;filter:brightness(0) invert(1)}
+  .footer-copy{
+    font-size:0.68rem;letter-spacing:0.1em;color:var(--muted);font-family:sans-serif;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="text63.webp" alt="ElectricSpoke" style="filter:brightness(0) invert(1);">
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">The Vision</a></li>
+    <li><a href="#partnership">Partner With Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Introducing</div>
+    <h1 class="hero-title">
+      Sebastian
+      <em>by ElectricSpoke</em>
+    </h1>
+    <p class="hero-sub">
+      Precision-engineered for the discerning urban commuter. Sebastian reimagines personal mobility as an object of quiet confidence — where function and form are one.
+    </p>
+    <a href="#about" class="hero-cta">
+      Discover Sebastian <span class="cta-arrow">→</span>
+    </a>
+  </div>
+
+  <!-- HOTSPOT LAYER -->
+  <div class="hotspot-layer">
+
+    <!-- Hotspot 1: Battery / Deck -->
+    <div class="hotspot" style="left:55%;top:74%;">
+      <div class="hotspot-dot"></div>
+      <div class="hotspot-popup" style="bottom:28px;left:16px;">
+        <div class="popup-label">Power</div>
+        <div class="popup-title">Long-range Battery</div>
+        <div class="popup-desc">An integrated deck-mounted cell delivers a refined 50+ km range on a single charge — enough for a full day of city travel.</div>
+      </div>
+    </div>
+
+    <!-- Hotspot 2: Rear hub motor -->
+    <div class="hotspot" style="left:72%;top:70%;">
+      <div class="hotspot-dot"></div>
+      <div class="hotspot-popup" style="bottom:28px;right:16px;">
+        <div class="popup-label">Performance</div>
+        <div class="popup-title">Hub Drive Motor</div>
+        <div class="popup-desc">A whisper-quiet rear hub motor delivers smooth, instant torque — Sebastian accelerates with the composure of a well-bred thoroughbred.</div>
+      </div>
+    </div>
+
+    <!-- Hotspot 3: Frame / Stem -->
+    <div class="hotspot" style="left:65%;top:32%;">
+      <div class="hotspot-dot"></div>
+      <div class="hotspot-popup" style="top:28px;right:16px;">
+        <div class="popup-label">Craftsmanship</div>
+        <div class="popup-title">Aerospace-grade Frame</div>
+        <div class="popup-desc">Hand-finished aluminium alloy construction. Sebastian weighs just 14 kg yet carries a rider with effortless poise. Built to last generations.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- GOODWOOD BADGE -->
+  <div class="goodwood-badge">
+    <div class="badge-line"></div>
+    <div class="badge-text">Debuting at Goodwood Festival of Speed · 2025</div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">50<span>+</span></div>
+    <div class="stat-label">km range</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">25<span>km/h</span></div>
+    <div class="stat-label">top speed</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">14<span>kg</span></div>
+    <div class="stat-label">total weight</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">3<span>h</span></div>
+    <div class="stat-label">full charge</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-left">
+    <div class="about-tag">The Vision</div>
+    <h2 class="about-heading">Urban mobility, elevated.</h2>
+    <p class="about-body">
+      ElectricSpoke was born from the belief that how we move through a city should feel as considered as any other act of modern living. Sebastian is the expression of that belief — a machine designed not merely to transport, but to delight.<br><br>
+      Every proportion, every surface, every connection point has been interrogated. The result is a scooter that belongs in the company of objects made to be appreciated for a lifetime.
+    </p>
+  </div>
+  <div class="about-right">
+    <p class="about-quote">"Sebastian is the first e-scooter I've encountered that one might describe as genuinely beautiful."</p>
+    <p class="about-quote-attr">— ElectricSpoke Design Studio</p>
+  </div>
+</section>
+
+<!-- PARTNERSHIP -->
+<section class="partnership" id="partnership">
+  <div class="partner-tag">Brand Partnerships</div>
+  <h2 class="partner-heading">Move with Sebastian.</h2>
+  <p class="partner-sub">
+    We are seeking a select number of brand partners who share our values of precision, restraint, and enduring quality. If your brand would feel at home at Goodwood, we'd like to hear from you.
+  </p>
+  <div class="partner-form">
+    <input type="text" placeholder="Name">
+    <input type="text" placeholder="Brand / Company">
+    <input type="email" placeholder="Email Address">
+    <textarea placeholder="Tell us about your brand"></textarea>
+    <button type="button" onclick="this.textContent='Enquiry Received';this.style.borderColor='var(--gold)';this.style.color='var(--gold)';this.disabled=true;">Submit Enquiry</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <img src="text63.webp" alt="ElectricSpoke">
+  </div>
+  <div class="footer-copy">© 2025 ElectricSpoke. All rights reserved.</div>
+</footer>
+
+<script>
+  document.querySelectorAll('.hotspot').forEach(hs => {
+    hs.addEventListener('click', e => {
+      e.stopPropagation();
+      const isActive = hs.classList.contains('active');
+      document.querySelectorAll('.hotspot').forEach(h => h.classList.remove('active'));
+      if (!isActive) hs.classList.add('active');
+    });
+  });
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.hotspot').forEach(h => h.classList.remove('active'));
+  });
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({behavior:'smooth'}); }
+    });
+  });
+</script>
+
+</body>
+</html>

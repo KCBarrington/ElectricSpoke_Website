@@ -78,14 +78,13 @@
   .specs div{display:flex;justify-content:space-between;gap:1rem;border-top:1px solid rgba(232,228,220,0.1);padding-top:5px}
   .specs span:last-child{color:#b8a070;text-align:right}
 
-  .countdown-section{background:#0a0908;border-top:1px solid rgba(184,160,112,0.15);border-bottom:1px solid rgba(184,160,112,0.15);padding:2.5rem 2rem;text-align:center;position:relative;z-index:2}
-  .countdown-label{font-size:0.65rem;letter-spacing:0.35em;text-transform:uppercase;color:#b8a070;margin-bottom:1.25rem;font-family:sans-serif}
-  .countdown-timer{display:inline-flex;align-items:center;gap:0.5rem;margin-bottom:1rem}
-  .countdown-unit{display:flex;flex-direction:column;align-items:center;min-width:80px}
-  .countdown-unit span{font-family:'Georgia',serif;font-size:clamp(2.2rem,4vw,3.8rem);color:#e8e4dc;letter-spacing:-0.02em;line-height:1}
-  .countdown-unit small{font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:#8a8680;font-family:sans-serif;margin-top:0.4rem}
-  .countdown-sep{font-size:clamp(2rem,3.5vw,3.2rem);color:#7a6a4a;font-family:'Georgia',serif;line-height:1;margin-bottom:1.2rem;opacity:0.6}
-  .countdown-event{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:#8a8680;font-family:sans-serif}
+  .hero-countdown{margin-top:1.8rem;padding-top:1.2rem;border-top:1px solid rgba(184,160,112,0.2)}
+  .hero-cd-label{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:#b8a070;margin-bottom:0.75rem;font-family:sans-serif}
+  .hero-cd-timer{display:flex;align-items:center;gap:0.4rem}
+  .hero-cd-unit{display:flex;flex-direction:column;align-items:center;min-width:44px}
+  .hero-cd-unit span{font-family:'Georgia',serif;font-size:clamp(1.6rem,2.5vw,2.4rem);color:#e8e4dc;letter-spacing:-0.02em;line-height:1}
+  .hero-cd-unit small{font-size:0.55rem;letter-spacing:0.2em;text-transform:uppercase;color:#8a8680;font-family:sans-serif;margin-top:0.3rem}
+  .hero-cd-sep{font-size:clamp(1.4rem,2vw,2rem);color:#7a6a4a;font-family:'Georgia',serif;margin-bottom:0.8rem;opacity:0.6}
 
   .stats{display:flex;border-top:1px solid rgba(184,160,112,0.15);border-bottom:1px solid rgba(184,160,112,0.15);background:#0d0c0b;position:relative;z-index:2}
   .stat{flex:1;padding:2rem 2.5rem;border-right:1px solid rgba(184,160,112,0.15);text-align:center}
@@ -154,6 +153,19 @@
       </h1>
       <p class="hero-sub">Precision-engineered for the discerning urban commuter. Sebastian reimagines personal mobility as an object of quiet confidence — where function and form are one.</p>
       <a href="#about" class="hero-cta">Discover Sebastian &nbsp;→</a>
+
+      <div class="hero-countdown">
+        <div class="hero-cd-label">Time to Goodwood</div>
+        <div class="hero-cd-timer">
+          <div class="hero-cd-unit"><span id="cd-days">00</span><small>Days</small></div>
+          <div class="hero-cd-sep">:</div>
+          <div class="hero-cd-unit"><span id="cd-hours">00</span><small>Hours</small></div>
+          <div class="hero-cd-sep">:</div>
+          <div class="hero-cd-unit"><span id="cd-mins">00</span><small>Mins</small></div>
+          <div class="hero-cd-sep">:</div>
+          <div class="hero-cd-unit"><span id="cd-secs">00</span><small>Secs</small></div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -199,16 +211,16 @@
   </div>
 </main>
 
-<div class="countdown-section">
+<div class="countdown-section" style="display:none">
   <div class="countdown-label">Time to Goodwood</div>
   <div class="countdown-timer">
-    <div class="countdown-unit"><span id="cd-days">00</span><small>Days</small></div>
+    <div class="countdown-unit"><span id="cd-days-old">00</span><small>Days</small></div>
     <div class="countdown-sep">:</div>
-    <div class="countdown-unit"><span id="cd-hours">00</span><small>Hours</small></div>
+    <div class="countdown-unit"><span id="cd-hours-old">00</span><small>Hours</small></div>
     <div class="countdown-sep">:</div>
-    <div class="countdown-unit"><span id="cd-mins">00</span><small>Minutes</small></div>
+    <div class="countdown-unit"><span id="cd-mins-old">00</span><small>Minutes</small></div>
     <div class="countdown-sep">:</div>
-    <div class="countdown-unit"><span id="cd-secs">00</span><small>Seconds</small></div>
+    <div class="countdown-unit"><span id="cd-secs-old">00</span><small>Seconds</small></div>
   </div>
   <div class="countdown-event">9 July 2026 &nbsp;·&nbsp; Goodwood Festival of Speed</div>
 </div>

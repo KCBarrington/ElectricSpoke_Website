@@ -28,8 +28,22 @@
   .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;z-index:0}
   .hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(10,9,8,0.97) 0%,rgba(10,9,8,0.82) 35%,rgba(10,9,8,0.22) 68%,rgba(10,9,8,0.04) 100%),linear-gradient(180deg,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.04) 50%,rgba(0,0,0,0.55) 100%)}
 
-  .hero-content{position:relative;z-index:2;min-height:100vh;display:flex;align-items:center;padding:1rem 5rem 2rem}
-  .copy{max-width:560px;transform:translateY(-2vh);margin-top:0;display:flex;flex-direction:column}
+ .hero-content{
+  position:relative;
+  z-index:2;
+  min-height:100vh;
+  display:flex;
+  align-items:flex-start;
+  padding:6rem 5rem 2rem;
+}
+ .copy{
+  max-width:560px;
+  min-height:calc(100vh - 8rem);
+  transform:none;
+  margin-top:0;
+  display:flex;
+  flex-direction:column;
+}
   .hero-eyebrow{font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;color:#b8a070;margin-bottom:0.75rem;display:flex;align-items:center;gap:0.75rem}
   .hero-eyebrow::before{content:'';display:block;width:32px;height:1px;background:#b8a070}
   .hero-title{font-size:clamp(2.8rem,5.2vw,5.8rem);font-weight:400;line-height:0.92;letter-spacing:-0.055em;color:#e8e4dc;margin-bottom:0.75rem;display:flex;flex-direction:column}
@@ -39,7 +53,12 @@
   .hero-cta{display:inline-flex;align-items:center;gap:0.75rem;font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:#e8e4dc;text-decoration:none;border-bottom:1px solid rgba(184,160,112,0.55);padding-bottom:0.6rem;transition:color 0.3s,border-color 0.3s}
   .hero-cta:hover{color:#d4b88a;border-color:#d4b88a}
 
-  .hero-countdown{margin-top:auto;padding-top:1rem;border-top:1px solid rgba(184,160,112,0.2);padding-bottom:4rem}
+.hero-countdown{
+  margin-top:auto;
+  padding-top:1rem;
+  border-top:1px solid rgba(184,160,112,0.2);
+  padding-bottom:5.8rem;
+}
   .hero-cd-label{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:#b8a070;margin-bottom:0.75rem;font-family:sans-serif}
   .hero-cd-timer{display:flex;align-items:center;gap:0.4rem}
   .hero-cd-unit{display:flex;flex-direction:column;align-items:center;min-width:44px}
@@ -233,7 +252,7 @@
 <footer>
   <div class="footer-brand"><img src="text63.webp" alt="ElectricSpoke"></div>
   <div class="footer-copy">© 2026 ElectricSpoke. All rights reserved.</div>
-  <div class="footer-version">v22</div>
+  <div class="footer-version">v23</div>
 </footer>
 
 <script>

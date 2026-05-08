@@ -74,12 +74,36 @@
   .specs div{display:flex;justify-content:space-between;gap:1rem;border-top:1px solid rgba(232,228,220,0.1);padding-top:5px}
   .specs span:last-child{color:#b8a070;text-align:right}
 
-  .stats{display:flex;border-top:1px solid rgba(184,160,112,0.15);border-bottom:1px solid rgba(184,160,112,0.15);background:#0d0c0b;position:relative;z-index:2}
-  .stat{flex:1;padding:2rem 2.5rem;border-right:1px solid rgba(184,160,112,0.15);text-align:center}
-  .stat:last-child{border-right:none}
-  .stat-num{font-size:2.2rem;color:#e8e4dc;letter-spacing:-0.02em;margin-bottom:0.25rem}
-  .stat-num span{color:#b8a070;font-size:1.2rem}
-  .stat-label{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:#8a8680;font-family:sans-serif}
+  .craft-section{padding:7rem 5rem;background:#0d0c0b;border-top:1px solid rgba(184,160,112,0.12);border-bottom:1px solid rgba(184,160,112,0.12)}
+  .craft-intro{max-width:820px;margin-bottom:6rem}
+  .craft-tag{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:#b8a070;margin-bottom:1.5rem;font-family:sans-serif}
+  .craft-heading{font-size:clamp(1.8rem,2.5vw,2.8rem);font-weight:400;line-height:1.2;color:#e8e4dc;margin-bottom:1.5rem}
+  .craft-body{font-size:0.88rem;line-height:1.9;color:#8a8680;font-family:sans-serif;letter-spacing:0.02em;max-width:680px}
+
+  .manufacturing-partners{padding-top:2rem;margin-bottom:0;border-top:1px solid rgba(184,160,112,0.12)}
+  .manufacturing-label{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:#b8a070;margin-bottom:1.5rem;font-family:sans-serif}
+  .manufacturing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+  .manufacturing-item{padding-top:1rem;border-top:1px solid rgba(184,160,112,0.1)}
+  .manufacturing-name{font-size:1rem;color:#e8e4dc;margin-bottom:0.55rem}
+  .manufacturing-role{font-size:0.78rem;line-height:1.7;color:#8a8680;font-family:sans-serif}
+
+  .craft-components-inline{
+    margin-top:1.6rem;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:0.9rem 3rem;
+    font-family:sans-serif;
+    font-size:0.72rem;
+    letter-spacing:0.08em;
+    color:#b8a070;
+  }
+  .craft-components-inline .inline-label{
+    color:#b8a070;
+  }
+  .craft-components-inline span{
+    color:#d4b88a;
+  }
 
   .about{padding:7rem 5rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;background:#111010}
   .about-tag{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:#b8a070;margin-bottom:1.5rem;font-family:sans-serif;display:flex;align-items:center;gap:0.75rem}
@@ -89,6 +113,14 @@
   .about-right{padding-left:2rem}
   .about-quote{font-size:1.3rem;line-height:1.6;font-style:italic;color:#d4b88a;margin-bottom:2rem}
   .about-quote-attr{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:#8a8680;font-family:sans-serif}
+
+  .spec-section{padding:5rem 5rem;background:#0a0908;text-align:center;border-top:1px solid rgba(184,160,112,0.12)}
+  .spec-tag{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:#b8a070;margin-bottom:3rem;font-family:sans-serif}
+  .spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:900px;margin:0 auto}
+  .spec-item{padding-top:1.5rem;border-top:1px solid rgba(184,160,112,0.15)}
+  .spec-value{font-size:3rem;line-height:1;color:#e8e4dc;margin-bottom:0.5rem}
+  .spec-unit{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:#b8a070;margin-bottom:1rem;font-family:sans-serif}
+  .spec-label{font-size:0.75rem;letter-spacing:0.08em;color:#8a8680;font-family:sans-serif}
 
   .partnership{padding:7rem 5rem;text-align:center;background:#0a0908;border-top:1px solid rgba(184,160,112,0.12)}
   .partner-tag{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:#b8a070;margin-bottom:1.5rem;font-family:sans-serif}
@@ -107,13 +139,35 @@
   .footer-copy{font-size:0.68rem;letter-spacing:0.1em;color:#8a8680;font-family:sans-serif}
   .footer-version{font-size:0.6rem;letter-spacing:0.1em;color:#3a3835;font-family:sans-serif}
 
+  .footer-right{
+    display:flex;
+    align-items:center;
+    gap:1.5rem;
+  }
+
+  .footer-instagram{
+    font-size:0.65rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:#7a6a4a;
+    text-decoration:none;
+    font-family:sans-serif;
+    transition:color 0.3s;
+  }
+
+  .footer-instagram:hover{
+    color:#d4b88a;
+  }
+
   @media(max-width:980px){
     .hotspots{display:none}
     nav{display:none}
     .hero-content{padding:0 2rem 5rem}
     .hero-countdown{left:2rem;bottom:8.5rem}
     .goodwood-badge{left:2rem;bottom:6rem}
-    .about,.partnership{padding:4rem 2rem}
+    .craft-section,.about,.spec-section,.partnership{padding:4rem 2rem}
+    
+    .manufacturing-grid,.spec-grid{grid-template-columns:1fr}
     .about{grid-template-columns:1fr}
     .about-right{padding-left:0}
     footer{padding:2rem;flex-direction:column;gap:1rem}
@@ -140,7 +194,7 @@
         <span class="brand">ElectricSpoke</span>
       </h1>
       <p class="hero-sub">Precision-engineered for the discerning urban commuter. Sebastian reimagines personal mobility as an object of quiet confidence — where function and form are one.</p>
-      <a href="#about" class="hero-cta">Discover Sebastian &nbsp;→</a>
+      <a href="#craft" class="hero-cta">Discover Sebastian &nbsp;→</a>
 
       <div class="hero-countdown">
         <div class="hero-cd-label">Product Launch</div>
@@ -201,12 +255,49 @@
   </div>
 </main>
 
-<div class="stats">
-  <div class="stat"><div class="stat-num">50<span>+</span></div><div class="stat-label">km range</div></div>
-  <div class="stat"><div class="stat-num">25<span>km/h</span></div><div class="stat-label">top speed</div></div>
-  <div class="stat"><div class="stat-num">14<span>kg</span></div><div class="stat-label">total weight</div></div>
-  <div class="stat"><div class="stat-num">3<span>h</span></div><div class="stat-label">full charge</div></div>
-</div>
+<section class="craft-section" id="craft">
+  <div class="craft-intro">
+    <div class="craft-tag">Craftsmanship & Components</div>
+    <h2 class="craft-heading">Built from exceptional materials and proven components.</h2>
+    <p class="craft-body">
+      Sebastian combines precision-engineered structure with carefully selected premium components drawn from the worlds of automotive, BMX and mountain bike design. Every material and component has been chosen not simply for performance, but for tactile quality, durability and character.<br><br>
+
+      Designed in the UK and developed with specialist British manufacturing partners, Sebastian brings together precision engineering, traditional craft and carefully selected performance components.
+    </p>
+
+    <div class="craft-components-inline">
+      <span class="inline-label">Featuring components from:</span>
+      <span>Magura</span>
+      <span>Lupine</span>
+      <span>Samsung</span>
+      <span>VESC</span>
+      <span>Alienation</span>
+      <span>Vans</span>
+    </div>
+  </div>
+
+  <div class="manufacturing-partners">
+    <div class="manufacturing-label">Specialist Manufacturing Partners</div>
+
+    <div class="manufacturing-grid">
+      <div class="manufacturing-item">
+        <div class="manufacturing-name">Lister Tube</div>
+        <div class="manufacturing-role">Precision tube bending and chassis component support.</div>
+      </div>
+
+      <div class="manufacturing-item">
+        <div class="manufacturing-name">Local CNC Fabrication Partner</div>
+        <div class="manufacturing-role">Machined and fabricated metal details for the Sebastian prototype.</div>
+      </div>
+
+      <div class="manufacturing-item">
+        <div class="manufacturing-name">Local Furniture Maker</div>
+        <div class="manufacturing-role">Hardwood deck and mudguard development, bringing hand-finished craft into the scooter’s core structure.</div>
+      </div>
+    </div>
+  </div>
+
+</section>
 
 <section class="about" id="about">
   <div>
@@ -222,10 +313,34 @@
   </div>
 </section>
 
+<section class="spec-section" id="specification">
+  <div class="spec-tag">Technical Specification</div>
+
+  <div class="spec-grid">
+    <div class="spec-item">
+      <div class="spec-value">30</div>
+      <div class="spec-unit">Miles</div>
+      <div class="spec-label">Estimated Range</div>
+    </div>
+
+    <div class="spec-item">
+      <div class="spec-value">30</div>
+      <div class="spec-unit">MPH</div>
+      <div class="spec-label">Top Speed</div>
+    </div>
+
+    <div class="spec-item">
+      <div class="spec-value">20°</div>
+      <div class="spec-unit">Gradient</div>
+      <div class="spec-label">Climbing Capability</div>
+    </div>
+  </div>
+</section>
+
 <section class="partnership" id="partnership">
-  <div class="partner-tag">Brand Partnerships</div>
-  <h2 class="partner-heading">Move with Sebastian.</h2>
-  <p class="partner-sub">We are seeking a select number of brand partners who share our values of precision, restraint, and enduring quality. If your brand would feel at home at Goodwood, we'd like to hear from you.</p>
+  <div class="partner-tag">Collaborations & Enquiries</div>
+  <h2 class="partner-heading">Start a conversation.</h2>
+  <p class="partner-sub">ElectricSpoke is currently open to conversations with brand partners, specialist manufacturers, media, retail and investment collaborators who share our belief in thoughtful, enduring design.</p>
 
   <div class="partner-form">
     <input type="text" placeholder="Name">
@@ -238,8 +353,16 @@
 
 <footer>
   <div class="footer-brand"><img src="text63.webp" alt="ElectricSpoke"></div>
+
   <div class="footer-copy">© 2026 ElectricSpoke. All rights reserved.</div>
-  <div class="footer-version">v24</div>
+
+  <div class="footer-right">
+    <a class="footer-instagram" href="https://www.instagram.com/electricspoke/" target="_blank" rel="noopener">
+      Instagram
+    </a>
+
+    <div class="footer-version">v32</div>
+  </div>
 </footer>
 
 <script>

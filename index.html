@@ -51,40 +51,14 @@
   .badge-line{width:28px;height:1px;background:#7a6a4a}
   .badge-text{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:#7a6a4a;font-family:sans-serif}
 
-  /* ── Hotspots ── */
   .hotspots{position:absolute;inset:0;z-index:4;pointer-events:none}
   .hotspot{position:absolute;width:15px;height:15px;pointer-events:auto;cursor:pointer;transform:translate(-50%,-50%)}
-
-  /* Number badge */
-  .hotspot-num{
-    position:absolute;
-    inset:0;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:22px;
-    height:22px;
-    left:-3px;top:-3px;
-    border-radius:50%;
-    background:rgba(184,160,112,0.15);
-    border:1px solid rgba(184,160,112,0.55);
-    font-family:sans-serif;
-    font-size:0.6rem;
-    font-weight:600;
-    letter-spacing:0;
-    color:#b8a070;
-    box-shadow:0 0 0 0 rgba(184,160,112,0.45);
-    animation:pulse 2.6s infinite;
-    transition:background 0.2s, border-color 0.2s;
-  }
-  .hotspot:hover .hotspot-num{
-    background:rgba(184,160,112,0.28);
-    border-color:#d4b88a;
-    color:#d4b88a;
-  }
+  .hotspot::before{content:'';position:absolute;inset:4px;border-radius:50%;background:#b8a070;box-shadow:0 0 0 0 rgba(184,160,112,0.45);animation:pulse 2.6s infinite}
+  .hotspot::after{content:'';position:absolute;inset:0;border:1px solid rgba(184,160,112,0.35);border-radius:50%;transform:scale(1.35);opacity:0;transition:opacity 0.25s,transform 0.25s}
+  .hotspot:hover::after{opacity:1;transform:scale(1.9)}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(184,160,112,0.45)}70%{box-shadow:0 0 0 12px rgba(184,160,112,0)}100%{box-shadow:0 0 0 0 rgba(184,160,112,0)}}
 
-  .card{position:absolute;left:28px;top:50%;width:260px;padding:1.1rem 1.25rem;transform:translateY(-50%) translateX(8px);background:rgba(10,9,8,0.96);border:1px solid #7a6a4a;backdrop-filter:blur(12px);opacity:0;visibility:hidden;transition:opacity 0.22s,transform 0.22s,visibility 0.22s;pointer-events:none}
+  .card{position:absolute;left:28px;top:50%;width:240px;padding:1.1rem 1.25rem;transform:translateY(-50%) translateX(8px);background:rgba(10,9,8,0.96);border:1px solid #7a6a4a;backdrop-filter:blur(12px);opacity:0;visibility:hidden;transition:opacity 0.22s,transform 0.22s,visibility 0.22s;pointer-events:none}
   .hotspot:hover .card{opacity:1;visibility:visible;transform:translateY(-50%) translateX(0);pointer-events:all}
   .card::before{content:'';position:absolute;width:46px;height:1px;left:-46px;top:50%;background:rgba(184,160,112,0.7)}
   .card.flip-left{left:auto;right:28px;transform:translateY(-50%) translateX(-8px)}
@@ -93,17 +67,12 @@
   .card.flip-down{left:auto;right:28px;top:28px;transform:translateY(0) translateX(-8px)}
   .hotspot:hover .card.flip-down{transform:translateY(0) translateX(0)}
   .card.flip-down::before{top:16px;left:auto;right:-46px}
-  /* flip-up: card opens above the hotspot, connector line goes down */
-  .card.flip-up{left:28px;top:auto;bottom:28px;transform:translateY(0) translateX(8px)}
-  .hotspot:hover .card.flip-up{transform:translateY(0) translateX(0)}
-  .card.flip-up::before{top:auto;bottom:16px;left:-46px}
-
   .popup-label{font-size:0.6rem;letter-spacing:0.3em;text-transform:uppercase;color:#b8a070;margin-bottom:0.4rem;font-family:sans-serif}
-  .popup-title{font-size:1.05rem;color:#e8e4dc;margin-bottom:0.4rem;font-weight:400}
+  .popup-title{font-size:1.1rem;color:#e8e4dc;margin-bottom:0.4rem;font-weight:400}
   .popup-desc{font-size:0.75rem;line-height:1.6;color:#8a8680;font-family:sans-serif}
   .specs{margin-top:0.75rem;display:grid;gap:5px;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(232,228,220,0.75);font-family:sans-serif}
   .specs div{display:flex;justify-content:space-between;gap:1rem;border-top:1px solid rgba(232,228,220,0.1);padding-top:5px}
-  .specs span:last-child{color:#b8a070;text-align:right;text-transform:none;letter-spacing:0.05em}
+  .specs span:last-child{color:#b8a070;text-align:right}
 
   .craft-section{padding:7rem 5rem;background:#0d0c0b;border-top:1px solid rgba(184,160,112,0.12);border-bottom:1px solid rgba(184,160,112,0.12)}
   .craft-intro{max-width:820px;margin-bottom:6rem}
@@ -129,8 +98,12 @@
     letter-spacing:0.08em;
     color:#b8a070;
   }
-  .craft-components-inline .inline-label{color:#b8a070}
-  .craft-components-inline span{color:#d4b88a}
+  .craft-components-inline .inline-label{
+    color:#b8a070;
+  }
+  .craft-components-inline span{
+    color:#d4b88a;
+  }
 
   .about{padding:7rem 5rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;background:#111010}
   .about-tag{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:#b8a070;margin-bottom:1.5rem;font-family:sans-serif;display:flex;align-items:center;gap:0.75rem}
@@ -165,9 +138,26 @@
   .footer-brand img{height:22px;opacity:0.5;filter:brightness(0) invert(1)}
   .footer-copy{font-size:0.68rem;letter-spacing:0.1em;color:#8a8680;font-family:sans-serif}
   .footer-version{font-size:0.6rem;letter-spacing:0.1em;color:#3a3835;font-family:sans-serif}
-  .footer-right{display:flex;align-items:center;gap:1.5rem}
-  .footer-instagram{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:#7a6a4a;text-decoration:none;font-family:sans-serif;transition:color 0.3s}
-  .footer-instagram:hover{color:#d4b88a}
+
+  .footer-right{
+    display:flex;
+    align-items:center;
+    gap:1.5rem;
+  }
+
+  .footer-instagram{
+    font-size:0.65rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:#7a6a4a;
+    text-decoration:none;
+    font-family:sans-serif;
+    transition:color 0.3s;
+  }
+
+  .footer-instagram:hover{
+    color:#d4b88a;
+  }
 
   @media(max-width:980px){
     .hotspots{display:none}
@@ -176,6 +166,7 @@
     .hero-countdown{left:2rem;bottom:8.5rem}
     .goodwood-badge{left:2rem;bottom:6rem}
     .craft-section,.about,.spec-section,.partnership{padding:4rem 2rem}
+
     .manufacturing-grid,.spec-grid{grid-template-columns:1fr}
     .about{grid-template-columns:1fr}
     .about-right{padding-left:0}
@@ -218,53 +209,48 @@
     </div>
   </div>
 
+
   <div class="hotspots">
 
-    <!-- 1 · Crafted Cockpit — top right, handlebar area -->
-    <div class="hotspot" data-ix="74.5" data-iy="6.5">
-      <div class="hotspot-num">1</div>
+    <div class="hotspot" data-ix="71.5" data-iy="8.0">
       <div class="card flip-left">
         <div class="popup-label">Crafted Interface</div>
         <div class="popup-title">Keyless Cockpit</div>
         <div class="popup-desc">A refined rider interface combining keyless operation, tactile controls and a precision CNC-machined stainless steel display housing.</div>
         <div class="specs">
-          <div><span>Interface</span><span>Keyless start system, aluminium control buttons for lights and indicators</span></div>
-          <div><span>Display</span><span>High resolution TFT display wrapped in a stainless housing</span></div>
+          <div><span>Interface</span><span>Keyless start system</span></div>
+          <div><span>Controls</span><span>Aluminium buttons</span></div>
+          <div><span>Display</span><span>High resolution TFT</span></div>
         </div>
       </div>
     </div>
 
-    <!-- 2 · Battery & Electronics Enclosure — bottom centre -->
-    <div class="hotspot" data-ix="47.0" data-iy="86.5">
-      <div class="hotspot-num">2</div>
-      <div class="card flip-up">
+    <div class="hotspot" data-ix="45.5" data-iy="85.0">
+      <div class="card">
         <div class="popup-label">Engineering</div>
-        <div class="popup-title">Stainless Battery &amp; Power Electronics Enclosure</div>
-        <div class="popup-desc">A fabricated stainless steel enclosure designed to protect the battery and power electronics systems while forming a structural part of Sebastian's low-slung visual balance and engineered character.</div>
+        <div class="popup-title">Stainless Battery & Power Electronics Enclosure</div>
+        <div class="popup-desc">A fabricated stainless steel enclosure designed to protect the battery and power electronics systems while forming a structural part of Sebastian’s low-slung visual balance and engineered character.</div>
         <div class="specs">
           <div><span>Construction</span><span>Stainless steel</span></div>
           <div><span>Battery</span><span>Samsung 21700 cells</span></div>
-          <div><span>Electronics</span><span>VESC Motor Controller and BMS</span></div>
+          <div><span>Electronics</span><span>VESC architecture</span></div>
         </div>
       </div>
     </div>
 
-    <!-- 3 · Hardwood Details — centre, deck area -->
-    <div class="hotspot" data-ix="59.5" data-iy="71.5">
-      <div class="hotspot-num">3</div>
-      <div class="card flip-up">
+    <div class="hotspot" data-ix="64.5" data-iy="72.5">
+      <div class="card">
         <div class="popup-label">Craftsmanship</div>
         <div class="popup-title">Hardwood Detailing</div>
         <div class="popup-desc">Handcrafted hardwood components bring warmth and contrast to the engineering beneath — inspired by classic interiors, furniture design and traditional coachbuilding.</div>
         <div class="specs">
-          <div><span>Components</span><span>Deck, mudguards and cockpit</span></div>
+          <div><span>Components</span><span>Deck & mudguards</span></div>
+          <div><span>Details</span><span>Cockpit integration</span></div>
         </div>
       </div>
     </div>
 
-    <!-- 4 · Tubular Steel Frame — left, rear wheel area -->
-    <div class="hotspot" data-ix="12.0" data-iy="84.0">
-      <div class="hotspot-num">4</div>
+    <div class="hotspot" data-ix="13.0" data-iy="63.0">
       <div class="card">
         <div class="popup-label">Structure</div>
         <div class="popup-title">Tubular Steel Chassis</div>
@@ -275,22 +261,21 @@
       </div>
     </div>
 
-    <!-- 5 · Premium Components — right side, front fork -->
-    <div class="hotspot" data-ix="87.5" data-iy="64.5">
-      <div class="hotspot-num">5</div>
+    <div class="hotspot" data-ix="89.0" data-iy="72.5">
       <div class="card flip-left">
         <div class="popup-label">Performance</div>
         <div class="popup-title">Premium Components</div>
         <div class="popup-desc">Selected components from the worlds of BMX, mountain bike and performance electronics deliver confident braking, durability and refined ride feel.</div>
         <div class="specs">
-          <div><span>Braking</span><span>Hydraulic brakes with 180mm discs</span></div>
-          <div><span>Wheels</span><span>16in dual-walled rims with Vans tyres</span></div>
-          <div><span>Lights</span><span>High power front and rear lights</span></div>
+          <div><span>Braking</span><span>Hydraulic 180mm discs</span></div>
+          <div><span>Wheels</span><span>16in dual-wall rims</span></div>
+          <div><span>Lights</span><span>High power front & rear</span></div>
         </div>
       </div>
     </div>
 
   </div>
+
 
   <div class="goodwood-badge">
     <div class="badge-line"></div>
@@ -300,10 +285,11 @@
 
 <section class="craft-section" id="craft">
   <div class="craft-intro">
-    <div class="craft-tag">Craftsmanship &amp; Components</div>
+    <div class="craft-tag">Craftsmanship & Components</div>
     <h2 class="craft-heading">Built from exceptional materials and proven components.</h2>
     <p class="craft-body">
       Sebastian combines precision-engineered structure with carefully selected premium components drawn from the worlds of automotive, BMX and mountain bike design. Every material and component has been chosen not simply for performance, but for tactile quality, durability and character.<br><br>
+
       Designed in the UK and developed with specialist British manufacturing partners, Sebastian brings together precision engineering, traditional craft and carefully selected performance components.
     </p>
 
@@ -319,22 +305,34 @@
   </div>
 
   <div class="manufacturing-partners">
-    <div class="manufacturing-label">Specialist Manufacturing Partners</div>
-    <div class="manufacturing-grid">
-      <div class="manufacturing-item">
-        <div class="manufacturing-name">Lister Tube</div>
-        <div class="manufacturing-role">Supplier of the tubular steel sections. <span>(Redditch, UK)</span></div>
-      </div>
-      <div class="manufacturing-item">
-        <div class="manufacturing-name">CNC Fabworx</div>
-        <div class="manufacturing-role">Providing precision sheet metal components. <span>(South Molton, UK)</span></div>
-      </div>
-      <div class="manufacturing-item">
-        <div class="manufacturing-name">David Glover Furniture</div>
-        <div class="manufacturing-role">Hardwood deck, mudguard and head unit craftsmanship. <span>(Barnstaple, UK)</span></div>
+  <div class="manufacturing-label">Specialist Manufacturing Partners</div>
+
+  <div class="manufacturing-grid">
+
+    <div class="manufacturing-item">
+      <div class="manufacturing-name">Lister Tube</div>
+      <div class="manufacturing-role">
+        Supplier of the tubular steel sections. <span>(Redditch, UK)</span>
       </div>
     </div>
+
+    <div class="manufacturing-item">
+      <div class="manufacturing-name">CNC Fabworx</div>
+      <div class="manufacturing-role">
+        Providing precision sheet metal components. <span>(South Molton, UK)</span>
+      </div>
+    </div>
+
+    <div class="manufacturing-item">
+      <div class="manufacturing-name">David Glover Furniture</div>
+      <div class="manufacturing-role">
+        Hardwood deck, mudguard and head unit craftsmanship. <span>(Barnstaple, UK)</span>
+      </div>
+    </div>
+
   </div>
+</div>
+
 </section>
 
 <section class="about" id="about">
@@ -343,6 +341,7 @@
     <h2 class="about-heading">Urban mobility, elevated.</h2>
     <p class="about-body">ElectricSpoke was born from the belief that how we move through a city should feel as considered as any other act of modern living. Sebastian is the expression of that belief — a machine designed not merely to transport, but to delight.<br><br>Every proportion, every surface, every connection point has been interrogated. The result is a scooter that belongs in the company of objects made to be appreciated for a lifetime.</p>
   </div>
+
   <div class="about-right">
     <p class="about-quote">"Sebastian is the first e-scooter I've encountered that one might describe as genuinely beautiful."</p>
     <p class="about-quote-attr">— ElectricSpoke Design Studio</p>
@@ -351,17 +350,20 @@
 
 <section class="spec-section" id="specification">
   <div class="spec-tag">Technical Specification</div>
+
   <div class="spec-grid">
     <div class="spec-item">
       <div class="spec-value">30</div>
       <div class="spec-unit">Miles</div>
       <div class="spec-label">Estimated Range</div>
     </div>
+
     <div class="spec-item">
       <div class="spec-value">30</div>
       <div class="spec-unit">MPH</div>
       <div class="spec-label">Top Speed</div>
     </div>
+
     <div class="spec-item">
       <div class="spec-value">20°</div>
       <div class="spec-unit">Gradient</div>
@@ -371,9 +373,10 @@
 </section>
 
 <section class="partnership" id="partnership">
-  <div class="partner-tag">Collaborations &amp; Enquiries</div>
+  <div class="partner-tag">Collaborations & Enquiries</div>
   <h2 class="partner-heading">Start a conversation.</h2>
   <p class="partner-sub">ElectricSpoke is currently open to conversations with brand partners, specialist manufacturers, media, retail and investment collaborators who share our belief in thoughtful, enduring design.</p>
+
   <div class="partner-form">
     <input type="text" placeholder="Name">
     <input type="text" placeholder="Brand / Company">
@@ -385,10 +388,15 @@
 
 <footer>
   <div class="footer-brand"><img src="text63.webp" alt="ElectricSpoke"></div>
+
   <div class="footer-copy">© 2026 ElectricSpoke. All rights reserved.</div>
+
   <div class="footer-right">
-    <a class="footer-instagram" href="https://www.instagram.com/electricspoke/" target="_blank" rel="noopener">Instagram</a>
-    <div class="footer-version">v35</div>
+    <a class="footer-instagram" href="https://www.instagram.com/electricspoke/" target="_blank" rel="noopener">
+      Instagram
+    </a>
+
+    <div class="footer-version">v36</div>
   </div>
 </footer>
 
@@ -400,16 +408,25 @@ document.addEventListener('DOMContentLoaded', function () {
   var cdSecs  = document.getElementById('cd-secs');
   var cdTarget = new Date('2026-07-09T09:00:00+01:00').getTime();
 
-  function pad(num) { return String(num).padStart(2, '0'); }
+  function pad(num) {
+    return String(num).padStart(2, '0');
+  }
 
   function cdTick() {
     var diff = cdTarget - Date.now();
     if (diff < 0) { diff = 0; }
-    cdDays.textContent  = pad(Math.floor(diff / 86400000));
-    cdHours.textContent = pad(Math.floor((diff % 86400000) / 3600000));
-    cdMins.textContent  = pad(Math.floor((diff % 3600000) / 60000));
-    cdSecs.textContent  = pad(Math.floor((diff % 60000) / 1000));
+
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+
+    cdDays.textContent  = pad(d);
+    cdHours.textContent = pad(h);
+    cdMins.textContent  = pad(m);
+    cdSecs.textContent  = pad(s);
   }
+
   cdTick();
   setInterval(cdTick, 1000);
 
@@ -418,6 +435,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function placeHotspots() {
     var hero = document.getElementById('hero');
     if (!heroImg || !hero || !heroImg.naturalWidth) { return; }
+
     var ir = heroImg.getBoundingClientRect();
     var hr = hero.getBoundingClientRect();
     var scale = Math.max(ir.width / heroImg.naturalWidth, ir.height / heroImg.naturalHeight);
@@ -426,6 +444,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var ox = (ir.width  - rw) / 2;
     var oy = (ir.height - rh) / 2;
     var spots = document.querySelectorAll('.hotspot[data-ix]');
+
     for (var i = 0; i < spots.length; i++) {
       var x = parseFloat(spots[i].getAttribute('data-ix')) / 100;
       var y = parseFloat(spots[i].getAttribute('data-iy')) / 100;
@@ -439,13 +458,17 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
     heroImg.onload = placeHotspots;
   }
+
   window.addEventListener('resize', placeHotspots);
 
   var navLinks = document.querySelectorAll('a[href^="#"]');
   for (var k = 0; k < navLinks.length; k++) {
     navLinks[k].addEventListener('click', function(e) {
       var tgt = document.querySelector(this.getAttribute('href'));
-      if (tgt) { e.preventDefault(); tgt.scrollIntoView({ behavior: 'smooth' }); }
+      if (tgt) {
+        e.preventDefault();
+        tgt.scrollIntoView({ behavior: 'smooth' });
+      }
     });
   }
 });

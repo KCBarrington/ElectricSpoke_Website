@@ -497,13 +497,16 @@ Influenced by 1980s industrial design, the Art Deco movement and the fusion of m
   <h2 class="partner-heading">Start a conversation.</h2>
   <p class="partner-sub">ElectricSpoke is currently open to conversations with brand partners, specialist manufacturers, media, retail and investment collaborators who share our belief in thoughtful, enduring design.</p>
 
-  <div class="partner-form">
-    <input type="text" placeholder="Name">
-    <input type="text" placeholder="Brand / Company">
-    <input type="email" placeholder="Email Address">
-    <textarea placeholder="Tell us about your brand"></textarea>
-    <button type="button" onclick="this.textContent='Enquiry Received';this.style.borderColor='#b8a070';this.style.color='#b8a070';this.disabled=true;">Submit Enquiry</button>
-  </div>
+<form class="partner-form" action="https://formspree.io/f/xwvyrdnq" method="POST">
+  <input type="text" name="name" placeholder="Name" required>
+  <input type="text" name="company" placeholder="Brand / Company">
+  <input type="email" name="email" placeholder="Email Address" required>
+  <textarea name="message" placeholder="Tell us about your enquiry" required></textarea>
+
+  <input type="hidden" name="_subject" value="New ElectricSpoke enquiry">
+
+  <button type="submit">Submit Enquiry</button>
+</form>
 </section>
 
 <footer>

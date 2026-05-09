@@ -131,12 +131,22 @@
 
   .manufacturing-grid{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:2rem;
+    grid-template-columns:repeat(4,1fr);
+    gap:0;
   }
 
   .manufacturing-item{
-    padding-top:0;
+    padding:0 2rem;
+    border-right:1px solid rgba(184,160,112,0.1);
+  }
+
+  .manufacturing-item:first-child{
+    padding-left:0;
+  }
+
+  .manufacturing-item:last-child{
+    border-right:none;
+    padding-right:0;
   }
 
   .manufacturing-name{
@@ -245,6 +255,14 @@
     .craft-section,.about,.spec-section,.partnership{padding:4rem 2rem}
 
     .manufacturing-grid,.spec-grid{grid-template-columns:1fr}
+    .manufacturing-item{
+      padding:1rem 0;
+      border-right:none;
+      border-top:1px solid rgba(184,160,112,0.1);
+    }
+    .manufacturing-item:first-child{
+      border-top:none;
+    }
     .component-brands{grid-template-columns:repeat(2,1fr);gap:1rem 2rem}
     .about{grid-template-columns:1fr}
     .about-right{padding-left:0}
@@ -407,6 +425,13 @@ Influenced by 1980s industrial design, the Art Deco movement and the fusion of m
         <div class="manufacturing-name">CNC Fabworx</div>
         <div class="manufacturing-role">
           Providing precision sheet metal components. <span>(South Molton, UK)</span>
+        </div>
+      </div>
+
+      <div class="manufacturing-item">
+        <div class="manufacturing-name">Fractory</div>
+        <div class="manufacturing-role">
+          CNC machining and precision manufacturing support. <span>(Manchester, UK)</span>
         </div>
       </div>
 

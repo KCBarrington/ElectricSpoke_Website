@@ -636,7 +636,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     for (var i = 0; i < spots.length; i++) {
       var x = parseFloat(spots[i].getAttribute('data-ix')) / 100;
-      var y = parseFloat(spots[i].getAttribute('data-wheeiy')) / 100;
+      var y = parseFloat(spots[i].getAttribute('data-iy')) / 100;
       spots[i].style.left = ((ir.left - hr.left) + ox + rw * x) + 'px';
       spots[i].style.top  = ((ir.top  - hr.top)  + oy + rh * y) + 'px';
     }

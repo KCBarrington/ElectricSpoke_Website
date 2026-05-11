@@ -143,16 +143,20 @@
 
   .craft-gallery img{
     width:100%;
-    height:220px;
     object-fit:cover;
     filter:grayscale(100%) contrast(1.08) brightness(0.72);
     border:1px solid rgba(184,160,112,0.14);
     transition:filter 0.4s ease, transform 0.4s ease;
   }
 
-  .craft-gallery img:first-child{
-    grid-column:span 2;
-    height:260px;
+  .craft-gallery img:nth-child(1),
+  .craft-gallery img:nth-child(2){
+    height:220px;
+  }
+
+  .craft-gallery img:nth-child(3),
+  .craft-gallery img:nth-child(4){
+    height:170px;
   }
 
   .craft-gallery img:hover{
@@ -305,8 +309,10 @@
       margin-bottom:3rem;
     }
 
-    .craft-gallery img,
-    .craft-gallery img:first-child{
+    .craft-gallery img:nth-child(1),
+    .craft-gallery img:nth-child(2),
+    .craft-gallery img:nth-child(3),
+    .craft-gallery img:nth-child(4){
       height:220px;
     }
 
@@ -479,6 +485,7 @@ Influenced by 1980s industrial design, the Art Deco movement and the fusion of m
 
     <div class="craft-gallery">
       <img src="CNC.jpg" alt="CNC machined stainless steel component">
+      <img src="Wheels_Vans.webp" alt="Wheel and braking assembly">
       <img src="LCD.jpg" alt="ElectricSpoke display detail">
       <img src="Mudguards_1.jpg" alt="Handcrafted hardwood mudguards">
     </div>
@@ -629,7 +636,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     for (var i = 0; i < spots.length; i++) {
       var x = parseFloat(spots[i].getAttribute('data-ix')) / 100;
-      var y = parseFloat(spots[i].getAttribute('data-iy')) / 100;
+      var y = parseFloat(spots[i].getAttribute('data-wheeiy')) / 100;
       spots[i].style.left = ((ir.left - hr.left) + ox + rw * x) + 'px';
       spots[i].style.top  = ((ir.top  - hr.top)  + oy + rh * y) + 'px';
     }

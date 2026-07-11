@@ -295,13 +295,92 @@
     color:#d4b88a;
   }
 
+
+  .reservation-section{
+    padding:7rem 5rem;
+    background:linear-gradient(180deg,#111010 0%,#0a0908 100%);
+    border-top:1px solid rgba(184,160,112,0.16);
+    text-align:center;
+  }
+  .reservation-inner{
+    max-width:760px;
+    margin:0 auto;
+    padding:2.5rem;
+    border:1px solid rgba(184,160,112,0.22);
+    background:rgba(10,9,8,0.45);
+  }
+  .reservation-tag{
+    font-size:0.65rem;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:#b8a070;
+    margin-bottom:1.5rem;
+    font-family:sans-serif;
+  }
+  .reservation-heading{
+    font-size:clamp(1.8rem,2.5vw,2.8rem);
+    font-weight:400;
+    line-height:1.2;
+    color:#e8e4dc;
+    margin-bottom:1.25rem;
+  }
+  .slots-remaining{
+    display:inline-block;
+    margin:0.5rem 0 1.5rem;
+    padding:0.65rem 1rem;
+    border:1px solid rgba(184,160,112,0.35);
+    color:#d4b88a;
+    font-family:sans-serif;
+    font-size:0.78rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+  }
+  .reservation-body{
+    font-size:0.9rem;
+    line-height:1.9;
+    color:#8a8680;
+    font-family:sans-serif;
+    letter-spacing:0.02em;
+    max-width:620px;
+    margin:0 auto 1rem;
+  }
+  .reserve-button{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:1.75rem;
+    padding:1rem 1.6rem;
+    border:1px solid #b8a070;
+    color:#0a0908;
+    background:#d4b88a;
+    text-decoration:none;
+    font-family:sans-serif;
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    transition:background 0.3s,color 0.3s,border-color 0.3s;
+  }
+  .reserve-button:hover{
+    background:#e8e4dc;
+    border-color:#e8e4dc;
+  }
+  .reservation-smallprint{
+    margin-top:1rem;
+    color:#7a6a4a;
+    font-family:sans-serif;
+    font-size:0.72rem;
+    line-height:1.7;
+  }
+
   @media(max-width:980px){
     .hotspots{display:none}
     nav{display:none}
     .hero-content{padding:0 2rem 5rem}
     .hero-countdown{left:2rem;bottom:8.5rem}
     .goodwood-badge{left:2rem;bottom:6rem}
-    .craft-section,.about,.spec-section,.partnership{padding:4rem 2rem}
+    .craft-section,.about,.spec-section,.partnership,.reservation-section{padding:4rem 2rem}
+    .reservation-inner{padding:2rem 1.5rem}
 
     .craft-top{
       grid-template-columns:1fr;
@@ -563,6 +642,37 @@ Influenced by 1980s industrial design, the Art Deco movement and the fusion of m
       <div class="spec-unit">Gradient</div>
       <div class="spec-label">Climbing Capability</div>
     </div>
+  </div>
+</section>
+
+
+<section class="reservation-section" id="reserve">
+  <div class="reservation-inner">
+    <div class="reservation-tag">First production allocation</div>
+    <h2 class="reservation-heading">Reserve one of the first 10 Electric Spoke production slots.</h2>
+
+    <div class="slots-remaining"><span id="slots-left">10</span> slots remaining</div>
+
+    <p class="reservation-body">
+      Secure your production slot with a refundable £500 deposit. UK scooter price is £6,500 plus UK VAT where applicable, with your deposit deducted from the balance.
+    </p>
+    <p class="reservation-body">
+      Shipping is not included. Costs associated with registering the scooter for use on UK public roads, along with any associated insurance costs, are to be confirmed and are not included in the scooter price.
+    </p>
+    <p class="reservation-body">
+      For international customers, UK VAT may not apply where the scooter is exported from the UK, subject to the required export evidence. International customers will be liable for, import duties, local VAT/sales tax, customs clearance fees, registration and any country-specific compliance requirements.
+    </p>
+    <p class="reservation-body">
+      Full payment will be required before your scooter enters the production run. Expected delivery: early Spring 2026, subject to testing, certification and production scheduling.
+    </p>
+
+    <a class="reserve-button" href="https://buy.stripe.com/7sYdR24ry7b9bV1b6Z2Ji01">
+      Reserve your slot — £500 refundable deposit
+    </a>
+
+    <p class="reservation-smallprint">
+      Refundable before final production order confirmation. Limited to 10 reservations.
+    </p>
   </div>
 </section>
 
